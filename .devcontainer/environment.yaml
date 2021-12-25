@@ -1,0 +1,41 @@
+name: ml-exp
+
+channels:
+  # - pytorch
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  # - tensorflow
+  # - tensorflow-cpu
+  # - keras
+
+  # - pytorch
+  # - pytorch-lightning
+  # - torchtext
+  # - torchvision
+  # - torchaudio
+  # - torchmetrics
+  # - transformers
+
+  # - cudatoolkit
+  # - scikit-learn
+
+  - ipykernel
+  - jupyterlab
+  - tensorboard
+  - conda-lock
+  - pandas
+
+  - matplotlib
+  - seaborn
+  - pytest
+  - rich
+  - wandb
+  - pre-commit
+  - black
+  - flake8
+  - python-dotenv
+  - pip
+  - pip:
+      - -r requirements.txt

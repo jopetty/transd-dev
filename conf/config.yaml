@@ -1,0 +1,24 @@
+# @package _global_
+
+defaults:
+  - _self_
+
+  - trainer: null
+  - model: null
+  - logger: null
+
+  - experiment: null
+
+  - override hydra/hydra_logging: colorlog
+  - override hydra/job_logging: colorlog
+
+mode: fdas
+
+work_dir: ${hydra:runtime.cwd}
+
+ignore_warnings: True
+
+print_config: True
+
+seed: null
+name: null
