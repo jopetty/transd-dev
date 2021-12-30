@@ -1,0 +1,5 @@
+name: eval
+
+hydra:
+  run:
+    dir: ${checkpoint_dir}/eval/${now:%Y-%m-%d}/${now:%H-%M-%S}

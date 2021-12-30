@@ -3,18 +3,23 @@
 defaults:
   - _self_
 
-  - trainer: null
-  - model: null
-  - logger: null
+  - mode: train
+
+  - trainer: default
+  - model: rnn_sequence_model
+  - datamodule: anaphora_datamodule
+  - callbacks: default
+  - logger: tensorboard
 
   - experiment: null
 
   - override hydra/hydra_logging: colorlog
   - override hydra/job_logging: colorlog
 
-mode: fdas
+# mode: train
 
 work_dir: ${hydra:runtime.cwd}
+data_dir: ${work_dir}/data
 
 ignore_warnings: True
 
@@ -22,3 +27,7 @@ print_config: True
 
 seed: null
 name: null
+
+hydra:
+  run:
+    dir: ${mode.hydra.run.dir}

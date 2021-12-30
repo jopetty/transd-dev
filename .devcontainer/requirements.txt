@@ -1,2 +1,8 @@
 hydra-core
 hydra-colorlog
+torch
+pytorch-lightning
+torchmetrics
+torchvision
+torchtext
+torch-tb-profiler

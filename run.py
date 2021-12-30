@@ -6,21 +6,21 @@ dotenv.load_dotenv(override=True)
 
 
 @hydra.main(config_path="conf/", config_name="config.yaml")
-def main(cfg: DictConfig):
+def main(config: DictConfig):
 
     from src.eval import eval
     from src.train import train
     from src.utils import utils
 
-    if cfg.get("print_config"):
-        utils.print_config(cfg, resolve=True)
+    if config.get("print_config"):
+        utils.print_config(config, resolve=True)
 
-    if cfg.mode == "train":
-        return train(cfg)
-    elif cfg.mode == "eval":
-        return eval(cfg)
+    if config.mode.name == "train":
+        return train(config)
+    elif config.mode.name == "eval":
+        return eval(config)
     else:
-        raise ValueError(f"Unknown mode '{cfg.mode}'")
+        raise ValueError(f"Unknown mode '{config.mode}'")
 
 
 if __name__ == "__main__":
