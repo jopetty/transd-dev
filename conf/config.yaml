@@ -2,9 +2,7 @@
 
 defaults:
   - _self_
-
   - mode: train
-
   - trainer: default
   - model: rnn_sequence_model
   - datamodule: anaphora_datamodule
@@ -27,7 +25,6 @@ print_config: True
 
 seed: null
 name: null
-
-hydra:
-  run:
-    dir: ${mode.hydra.run.dir}
+# hydra:
+#   run:
+#     dir: ${mode.hydra.run.dir}

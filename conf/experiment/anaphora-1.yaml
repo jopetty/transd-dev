@@ -1,0 +1,13 @@
+# @package _global_
+
+defaults:
+  - override /mode: train.yaml
+  - override /trainer: default.yaml
+  - override /model: rnn_sequence_model.yaml
+  - override /datamodule: anaphora_datamodule.yaml
+  - override /callbacks: default.yaml
+  - override /logger: tensorboard.yaml
+
+name: "example_simple"
+
+seed: 12345

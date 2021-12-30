@@ -2,4 +2,4 @@ name: train
 
 hydra:
   run:
-    dir: ${hydra:runtime.cwd}/outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    dir: ${hydra:runtime.cwd}/outputs/${experiment.name}/${now:%Y-%m-%d}/${now:%H-%M-%S}
