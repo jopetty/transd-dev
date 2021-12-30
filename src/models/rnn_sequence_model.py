@@ -26,6 +26,7 @@ class RNNSequenceModel(LightningModule):
         dec_max_gen_length: int = 20,
         lr: float = 0.001,
         weight_decay: float = 0.0005,
+        tf_ratio: int = 0.5,
     ) -> None:
         super().__init__()
 
@@ -60,7 +61,7 @@ class RNNSequenceModel(LightningModule):
         logits = torch.transpose(logits, 1, 2)
         return logits, target
 
-    def step(self, batch: Any):
+    def step(self, batch: Any, tf_ratio=0.0):
         source, transform, target = batch
         enc_input = {"source": source, "transform": transform, "target": target}
         output = self.forward(enc_input)
@@ -73,7 +74,7 @@ class RNNSequenceModel(LightningModule):
         return loss, preds, target
 
     def training_step(self, batch: Any, batch_idx: int):
-        loss, preds, targets = self.step(batch)
+        loss, preds, targets = self.step(batch, tf_ratio=self.hparams["tf_ratio"])
 
         # print("target: ", targets[0])
         # print("prediction: ", preds[0])

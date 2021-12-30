@@ -15,3 +15,4 @@ dec_max_gen_length: 20
 
 lr: 0.01
 weight_decay: 0.0005
+tf_ratio: 0.5
