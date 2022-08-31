@@ -1,4 +1,4 @@
-hydra-core==1.1.1
+hydra-core==1.2.0
 hydra-colorlog==1.1.0
 torch==1.10.1
 pytorch-lightning==1.5.7

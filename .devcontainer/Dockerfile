@@ -17,7 +17,6 @@ RUN wget \
     && chmod +x ~/miniconda.sh \
     && bash ~/miniconda.sh -b -p $CONDA_DIR \
     && rm -f ~/miniconda.sh
-
 COPY environment.yaml requirements.txt /tmp/conda-tmp/
 RUN umask 0002 \
     && conda env update -n base -f /tmp/conda-tmp/environment.yaml \
