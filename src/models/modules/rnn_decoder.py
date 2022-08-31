@@ -36,21 +36,10 @@ class RNNDecoder(nn.Module):
         # Unsqueeze if only one batch is present
         no_squeeze = lambda a: a.unsqueeze(0) if a.shape == 2 else a
 
-        # print("Step Input")
-        # for key in step_input:
-        #     print(f"{key}: {step_input[key].shape}")
-
         h = no_squeeze(step_input["h"])
         unit_input = no_squeeze(F.relu(self.embedding(step_input["x"])))
         _, state = self.unit(unit_input, h)
         y = self.output(no_squeeze(state[-1, :, :]))
-
-        # print(f"h: {h.shape}")
-        # print(f"unit_input: {unit_input.shape}")
-        # print(f"unk: {unk.shape}")
-        # print(f"state: {state.shape}")
-        # print(f"state[-1]: {state[-1].shape}")
-        # print(f"y: {y.shape}")
 
         return {"y": y, "h": state}
 
@@ -68,8 +57,6 @@ class RNNDecoder(nn.Module):
         if "x" in dec_input:
             x = dec_input["x"]
         elif "transform" in dec_input:
-            # print("No x found")
-            # print(dec_input["transform"][:, 1:-1].shape)
             x = dec_input["transform"][:, 1:-1]
         else:
             raise ValueError(
@@ -104,17 +91,11 @@ class RNNDecoder(nn.Module):
 
         for i in range(gen_length):
 
-            # print(f"STEP {i} (tf={is_teacher_forcing})")
-
             step_result = self.forward_step(dec_step_input)
             step_prediction = step_result["y"].argmax(dim=-1)
 
-            # for key in step_result:
-            #     print(f"step_result[{key}]: {step_result[key].shape}")
-            # print("dec_hidden: ", dec_hidden.shape)
-
             dec_output[i] = step_result["y"]
-            dec_hidden[i] = step_result["h"]
+            dec_hidden[i] = step_result["h"][-1]
 
             has_finished[step_prediction == self.EOS_idx] = True
             if all(has_finished):
