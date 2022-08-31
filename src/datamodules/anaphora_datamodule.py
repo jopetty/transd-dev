@@ -2,6 +2,7 @@ from typing import Optional, Tuple
 
 import torch
 from pytorch_lightning import LightningDataModule
+from torch import Tensor
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader
 from torch.utils.data.dataset import Dataset, random_split
@@ -51,7 +52,7 @@ class AnaphoraDataModule(LightningDataModule):
 
             self.data_gen = AnaphoraDataset(self.hparams.data_dir, split="gen")
 
-    def pad_collate(self, data):
+    def pad_collate(self, data) -> Tuple[Tensor, Tensor, Tensor]:
 
         source_arr = [torch.Tensor(r["source"]).long() for r in data]
         transf_arr = [torch.Tensor(r["transformation"]).long() for r in data]
