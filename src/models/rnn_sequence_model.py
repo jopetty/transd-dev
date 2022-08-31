@@ -22,7 +22,7 @@ class RNNSequenceModel(LightningModule):
         dec_embedding_size: int = 256,
         dec_hidden_size: int = 256,
         dec_num_layers: int = 1,
-        dec_EOS_idx: int = 2,
+        dec_EOS_idx: int = 3,
         dec_max_gen_length: int = 20,
         lr: float = 0.001,
         weight_decay: float = 0.0005,
@@ -42,9 +42,9 @@ class RNNSequenceModel(LightningModule):
 
         self.val_acc_best = MaxMetric()
 
-    def forward(self, enc_input: Dict[str, Tensor]):
+    def forward(self, enc_input: Dict[str, Tensor], tf_ratio: float):
 
-        return self.model(enc_input)
+        return self.model(enc_input, tf_ratio)
 
     def normalize_lengths(self, logits, target):
 
@@ -64,7 +64,7 @@ class RNNSequenceModel(LightningModule):
     def step(self, batch: Any, tf_ratio=0.0):
         source, transform, target = batch
         enc_input = {"source": source, "transform": transform, "target": target}
-        output = self.forward(enc_input)
+        output = self.forward(enc_input, tf_ratio)
         logits = output["logits"]
         preds = output["predictions"]
 
