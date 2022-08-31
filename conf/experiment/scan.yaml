@@ -1,0 +1,31 @@
+# @package _global_
+
+defaults:
+  - override /mode: train.yaml
+  - override /trainer: default.yaml
+  - override /model: rnn_sequence_model.yaml
+  - override /datamodule: scan_datamodule.yaml
+  - override /callbacks: default.yaml
+  - override /logger: wandb.yaml
+
+name: "SCAN"
+
+model:
+  enc_embedding_size: 100
+  enc_hidden_size: 300
+  enc_num_layers: 3
+
+  dec_input_size: 100
+  dec_embedding_size: 300
+  dec_hidden_size: 300
+  dec_num_layers: 3
+  dec_max_gen_length: 50
+
+logger:
+  wandb:
+    project: "scan"
+    save_dir: "${work_dir}/${hydra:run.dir}"
+
+hydra:
+  run:
+    dir: outputs/${name}/${now:%Y-%m-%d}_${now:%H-%M-%S}

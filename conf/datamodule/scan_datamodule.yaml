@@ -1,0 +1,7 @@
+_target_: src.datamodules.scan_datamodule.ScanDataModule
+
+data_dir: ${data_dir}
+batch_size: 5
+train_val_test_split: [0.9, 0.1, 0.0]
+num_workers: 1
+pin_memory: False

@@ -1,17 +1,14 @@
 _target_: src.models.rnn_sequence_model.RNNSequenceModel
 
-enc_vocab_size: 47
 enc_embedding_size: 256
 enc_hidden_size: 256
 enc_num_layers: 1
 
-dec_vocab_size: 49
 dec_input_size: 100
 dec_embedding_size: 256
 dec_hidden_size: 256
 dec_num_layers: 1
-dec_EOS_idx: 3
-dec_max_gen_length: 20
+dec_max_gen_length: 50
 
 lr: 0.01
 weight_decay: 0.0005

@@ -5,9 +5,9 @@ defaults:
   - mode: train
   - trainer: default
   - model: rnn_sequence_model
-  - datamodule: anaphora_datamodule
+  - datamodule: scan_datamodule
   - callbacks: default
-  - logger: tensorboard
+  - logger: wandb
 
   - experiment: null
 

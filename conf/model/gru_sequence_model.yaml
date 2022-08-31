@@ -1,0 +1,15 @@
+_target_: src.models.gru_sequence_model.GRUSequenceModel
+
+enc_embedding_size: 100
+enc_hidden_size: 300
+enc_num_layers: 2
+
+dec_input_size: 100
+dec_embedding_size: 300
+dec_hidden_size: 300
+dec_num_layers: 2
+dec_max_gen_length: 50
+
+lr: 0.01
+weight_decay: 0.0005
+tf_ratio: 0.5
