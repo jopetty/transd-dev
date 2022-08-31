@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 import hydra
-from omegaconf import DictConfig
+from omegaconf import DictConfig, open_dict
 from pytorch_lightning import Callback, LightningDataModule, LightningModule, Trainer
 from pytorch_lightning.loggers import LightningLoggerBase
 
@@ -17,6 +17,16 @@ def train(config: DictConfig) -> Optional[float]:
 
     log.info(f"Creating datamodule <{config.datamodule._target_}>")
     datamodule: LightningDataModule = hydra.utils.instantiate(config.datamodule)
+
+    # Set model config based on dataset values
+    datamodule.setup()
+    dec_vocab_size: int = len(datamodule.data_train.dataset.target_vocab)
+    enc_vocab_size: int = len(datamodule.data_train.dataset.source_vocab)
+    dec_EOS_idx: int = datamodule.data_train.dataset.target_vocab.get_stoi()["<EOS>"]
+    with open_dict(config):
+        config.model.dec_vocab_size = dec_vocab_size
+        config.model.enc_vocab_size = enc_vocab_size
+        config.model.dec_EOS_idx = dec_EOS_idx
 
     log.info(f"Creating model <{config.model._target_}>")
     model: LightningModule = hydra.utils.instantiate(config.model)
