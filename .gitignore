@@ -130,7 +130,6 @@ dmypy.json
 
 # Hydra
 outputs/
-data/*/
 
 # Apple
 .DS_Store
