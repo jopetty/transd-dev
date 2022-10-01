@@ -4,27 +4,32 @@ defaults:
   - override /mode: train.yaml
   - override /trainer: default.yaml
   - override /model: rnn_sequence_model.yaml
-  - override /datamodule: scan_datamodule.yaml
+  - override /datamodule: scan_addjump_datamodule.yaml
   - override /callbacks: default.yaml
   - override /logger: wandb.yaml
 
-name: "SCAN"
+name: "SCAN (Add Jump)"
 
 model:
   enc_embedding_size: 100
-  enc_hidden_size: 300
-  enc_num_layers: 3
+  enc_hidden_size: 100
+  enc_num_layers: 2
 
   dec_input_size: 100
-  dec_embedding_size: 300
-  dec_hidden_size: 300
-  dec_num_layers: 3
+  dec_embedding_size: 100
+  dec_hidden_size: 100
+  dec_num_layers: 2
   dec_max_gen_length: 50
 
 logger:
   wandb:
-    project: "scan"
+    project: ${name}
     save_dir: "${work_dir}/${hydra:run.dir}"
+
+callbacks:
+  early_stopping:
+    patience: 10
+    min_delta: 0.001
 
 hydra:
   run:

@@ -10,7 +10,7 @@ from torch.utils.data.dataset import random_split
 from src.datamodules.datasets.scan_dataset import ScanDataset
 
 
-class ScanDataModule(LightningDataModule):
+class ScanSimpleDataModule(LightningDataModule):
     def __init__(
         self,
         data_dir: str = "data/",
