@@ -51,6 +51,12 @@ class AnaphoraDataModule(LightningDataModule):
             )
 
             self.data_gen = AnaphoraDataset(self.hparams.data_dir, split="gen")
+            for col in self.data_gen.data.columns:
+                setattr(
+                    self.data_gen,
+                    f"{col}_vocab",
+                    getattr(in_domain_dataset, f"{col}_vocab"),
+                )
 
     def pad_collate(self, data) -> Tuple[Tensor, Tensor, Tensor]:
 
