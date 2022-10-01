@@ -13,25 +13,27 @@ name: "anaphora-1"
 # seed: 12345
 
 model:
-  enc_embedding_size: 256
-  enc_hidden_size: 256
+  enc_embedding_size: 30
+  enc_hidden_size: 49
   enc_num_layers: 1
 
-  dec_input_size: 256
-  dec_embedding_size: 256
-  dec_hidden_size: 256
+  dec_input_size: 30
+  dec_embedding_size: 49
+  dec_hidden_size: 49
   dec_num_layers: 1
   dec_max_gen_length: 8
 
 logger:
   wandb:
-    # project: ${name}
     save_dir: ${hydra:runtime.cwd}/${hydra:run.dir}
+
+trainer:
+  max_epochs: 1000
 
 callbacks:
   early_stopping:
-    patience: 10
-    min_delta: 0.001
+    patience: 80
+    min_delta: 0.0001
 
 hydra:
   run:
