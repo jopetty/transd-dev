@@ -13,6 +13,10 @@ class RNNSeq2Seq(nn.Module):
         self.encoder = RNNEncoder(hparams)
         self.decoder = RNNDecoder(hparams)
 
+    def get_encodings(self, enc_input: Dict[str, Tensor]):
+
+        return self.encoder(enc_input)
+
     def forward(self, enc_input: Dict[str, Tensor], tf_ratio: float):
 
         dec_input = self.encoder(enc_input) | enc_input

@@ -46,6 +46,11 @@ class RNNSequenceModel(LightningModule):
 
         return self.model(enc_input, tf_ratio)
 
+    def get_encodings(self, batch: Any):
+        source, transform, target = batch
+        enc_input = {"source": source, "transform": transform, "target": target}
+        return self.model.get_encodings(enc_input)
+
     def normalize_lengths(self, logits, target):
 
         diff = int(target.shape[1] - logits.shape[1])
@@ -76,14 +81,9 @@ class RNNSequenceModel(LightningModule):
     def training_step(self, batch: Any, batch_idx: int):
         loss, preds, targets = self.step(batch, tf_ratio=self.hparams["tf_ratio"])
 
-        # print("target: ", targets[0])
-        # print("prediction: ", preds[0])
-
         acc = self.train_acc(preds, targets)
         self.log("train/loss", loss, on_step=False, on_epoch=True, prog_bar=False)
         self.log("train/acc", acc, on_step=False, on_epoch=True, prog_bar=True)
-
-        # print(loss)
 
         return {"loss": loss, "preds": preds, "targets": targets}
 
