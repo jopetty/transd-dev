@@ -1,5 +1,6 @@
 default_language_version:
   node: 16.17.1
+  python: python3.9
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -13,6 +14,7 @@ repos:
         args: [--maxkb=5000]
       - id: debug-statements
       - id: detect-private-key
+      - id: requirements-txt-fixer
 
   # python code formatting
   - repo: https://github.com/psf/black
@@ -40,11 +42,20 @@ repos:
     hooks:
       - id: flake8
 
+  # Clean output cells of jupyter notebooks
   - repo: https://github.com/roy-ht/pre-commit-jupyter
     rev: v1.2.1
     hooks:
       - id: jupyter-notebook-cleanup
         args:
-          # - --remove-kernel-metadata
           - --pin-patterns
           - "[pin];[donotremove]"
+
+  # Code linting inside jupyter notebooks
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.5.2
+    hooks:
+      - id: nbqa-black
+      - id: nbqa-flake8
+      - id: nbqa-isort
+        args: ["--float-to-top"]
