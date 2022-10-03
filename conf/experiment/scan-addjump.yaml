@@ -26,9 +26,12 @@ logger:
     project: ${name}
     save_dir: "${work_dir}/${hydra:run.dir}"
 
+trainer:
+  max_epochs: 400
+
 callbacks:
   early_stopping:
-    patience: 10
+    patience: 50
     min_delta: 0.001
 
 hydra:
