@@ -33,3 +33,9 @@ where `conf/experiment/FILE.yaml` is a configuration file specifying the experim
 ### Integrations
 
 Transductions will, by default, log training runs using [Weights and Biases](wandb.ai). You will be prompted to enter an authentication token on the first run. To remove this functionality, override the `logger` value to `null` in your experiment configuration file.
+
+To sync local runs to your W&B account, copy your [authentication token](https://wandb.ai/authorize) into a root-level file called `.env` containing the key as the value for the `WANDB_API_KEY` environment variable:
+```
+WANDB_API_KEY=##################################
+```
+Note that this file is explicitly excluded from git tracking since it contains private key information. Never track this file in git.
